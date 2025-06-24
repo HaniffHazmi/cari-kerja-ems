@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\AdminDashboardController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,8 +39,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 });
 */
-
 Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin/dashboard',[AdminDashboardController::class, 'index'])->name('admin.dashboard');
+
     Route::resource('departments', DepartmentController::class);
     Route::resource('employees', EmployeeController::class);
 });
