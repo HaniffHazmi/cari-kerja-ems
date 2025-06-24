@@ -21,7 +21,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::middleware(['auth'])->group(function () {
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*Route::middleware(['auth'])->group(function () {
 
     // Only admins can access these:
     Route::middleware(function ($request, $next) {
@@ -34,4 +35,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('employees', EmployeeController::class);
     });
 
+});
+*/
+
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::resource('departments', DepartmentController::class);
+    Route::resource('employees', EmployeeController::class);
 });
